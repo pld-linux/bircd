@@ -6,20 +6,20 @@
 Summary:	Internet Relay Chat Server
 Summary(pl):	Serwer IRC (Internet Relay Chat)
 Name:		bircd
-Version:	2.0.3rc6
-Release:	4
+Version:	2.0.3rc7
+Release:	1
 License:	GPL
 Group:		Daemons
-Source0:	http://www.onthanet.nl/~borg/download/%{name}%{version}.tgz
-# Source0-md5:	2b59be1677db237521ae0c628511866c
+#Source0:	http://www.onthanet.nl/~borg/download/%{name}%{version}.tgz
+Source0:	http://ircd.limanowa.net/bircd/%{name}%{version}.tgz
+# Source0-md5:	d02de85d98073b547bd8eae61951dca3
 Source1:	%{name}.init
 Source2:	%{name}.sysconfig
 Source3:	%{name}.logrotate
 Patch0:		%{name}-makefile.patch
 Patch1:		%{name}-config.patch
-Patch2:		%{name}-fix.patch
-Patch3:		%{name}-smode.patch
-Patch4:		%{name}-crypt.patch
+Patch2:		%{name}-smode.patch
+Patch3:		%{name}-crypt.patch
 URL:		http://www.onthanet.nl/~borg/
 BuildRequires:	rpmbuild(macros) >= 1.159
 PreReq:		rc-scripts
@@ -55,9 +55,8 @@ IPv6.
 %setup -q -n bircd
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
-%{?with_smode:%patch3 -p1}
-%{?with_crypt:%patch4 -p1}
+%{?with_smode:%patch2 -p1}
+%{?with_crypt:%patch3 -p1}
 
 %build
 ./Config
