@@ -1,12 +1,13 @@
 #
 # Conditional build
 %bcond_with	smode	# build with /smode command support
+%bcond_with	crypt	# build with crypted passwords support
 #
 Summary:	Internet Relay Chat Server
 Summary(pl):	Serwer IRC (Internet Relay Chat)
 Name:		bircd
 Version:	2.0.3rc6
-Release:	3
+Release:	4
 License:	GPL
 Group:		Daemons
 Source0:	http://www.onthanet.nl/~borg/download/%{name}%{version}.tgz
@@ -18,6 +19,7 @@ Patch0:		%{name}-makefile.patch
 Patch1:		%{name}-config.patch
 Patch2:		%{name}-fix.patch
 Patch3:		%{name}-smode.patch
+Patch4:		%{name}-crypt.patch
 URL:		http://www.onthanet.nl/~borg/
 BuildRequires:	rpmbuild(macros) >= 1.159
 PreReq:		rc-scripts
@@ -55,6 +57,7 @@ IPv6.
 %patch1 -p1
 %patch2 -p1
 %{?with_smode:%patch3 -p1}
+%{?with_crypt:%patch4 -p1}
 
 %build
 ./Config
