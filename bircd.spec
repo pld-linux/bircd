@@ -23,11 +23,11 @@ Requires(post):	fileutils
 Requires(post,preun):	/sbin/chkconfig
 Requires(postun):	/usr/sbin/userdel
 Requires(postun):	/usr/sbin/groupdel
-BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	ircd
 Obsoletes:	ircd6
 Obsoletes:	ircd-hybrid
 Obsoletes:	ircd-ptlink
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_sysconfdir	/etc/ircd
 %define		_localstatedir	/var/lib/ircd
@@ -35,7 +35,6 @@ Obsoletes:	ircd-ptlink
 %description
 bIRCd is a small, simple and very fast IRC server. It is easy to
 configure and use. It also has support for IPv6.
-
 
 %description -l pl
 bIRCd jest ma³ym, prostym i bardzo szybkim serwerem IRC. Jest bardzo
