@@ -1,0 +1,11 @@
+--- bircd.orig/include/config.h	2004-05-30 11:31:46.000000000 +0200
++++ bircd/include/config.h	2004-09-12 21:12:18.994672912 +0200
+@@ -52,7 +52,7 @@
+ ** Define this if you want to use crypted passwords for operators in your
+ ** ircd.conf file.
+ */
+-//#define CRYPT_OPER_PASSWORD
++#define CRYPT_OPER_PASSWORD
+ #define CRYPT_SALT1 0xefcdab89
+ #define CRYPT_SALT2 0x98badcfe
+ 
