@@ -14,6 +14,7 @@ Patch0:		%{name}-makefile.patch
 Patch1:		%{name}-config.patch
 Patch2:		%{name}-fix.patch
 URL:		http://www.onthanet.nl/~borg/
+BuildRequires:	rpmbuild(macros) >= 1.159
 PreReq:		rc-scripts
 Requires(pre):	/usr/bin/getgid
 Requires(pre):	/bin/id
@@ -21,8 +22,10 @@ Requires(pre):	/usr/sbin/groupadd
 Requires(pre):	/usr/sbin/useradd
 Requires(post):	fileutils
 Requires(post,preun):	/sbin/chkconfig
-Requires(postun):	/usr/sbin/userdel
 Requires(postun):	/usr/sbin/groupdel
+Requires(postun):	/usr/sbin/userdel
+Provides:	group(ircd)
+Provides:	user(ircd)
 Obsoletes:	ircd
 Obsoletes:	ircd6
 Obsoletes:	ircd-hybrid
@@ -119,10 +122,9 @@ if [ "$1" = "0" ]; then
 fi
 
 %postun
-# If package is being erased for the last time.
 if [ "$1" = "0" ]; then
-	/usr/sbin/userdel ircd 2> /dev/null
-	/usr/sbin/groupdel ircd 2> /dev/null
+	%userremove ircd
+	%groupremove ircd
 fi
 
 %files
