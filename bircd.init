@@ -1,0 +1,80 @@
+#!/bin/sh
+#
+# ircd		This shell script takes care of starting and stopping ircd.
+#
+# chkconfig:	234 75 30
+# description:	Internet Relay Chat Server.
+#
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+# Source networking configuration.
+. /etc/sysconfig/network
+
+# Get service config
+[ -f /etc/sysconfig/ircd ] && . /etc/sysconfig/ircd
+
+# Check that networking is up.
+if is_yes "${NETWORKING}"; then
+	if [ ! -f /var/lock/subsys/network -a "$1" != stop -a "$1" != status ]; then
+		msg_network_down bIRCd
+		exit 1
+	fi
+else
+	exit 0
+fi
+
+IRCD="/usr/sbin/ircd"
+
+RETVAL=0
+# See how we were called.
+case "$1" in
+  start)
+	# Check if the service is already running?
+	if [ ! -f /var/lock/subsys/ircd ]; then
+		# Start daemons.
+		msg_starting "bIRCd Server"
+		daemon ${IRCD}
+		touch /var/lock/subsys/ircd
+	else
+		msg_already_running bIRCd
+	fi
+	;;
+  stop)
+	# Check if the service is already running?
+	if [ -f /var/lock/subsys/ircd ]; then
+		# Stop daemons.
+		msg_stopping "bIRCd Server"
+		killproc ${IRCD#\-}
+		rm -f /var/lib/ircd/ircd.pid
+		rm -f /var/lock/subsys/ircd
+	else
+		msg_not_running bIRCd
+	fi
+	;;
+  reload|force-reload)
+	if [ -f /var/lock/subsys/ircd ]; then
+		msg_reloading "bIRCd Server"
+		killproc ${IRCD#\-} -HUP
+		RETVAL=$?
+	else
+		msg_not_running bIRCd >&2
+		exit 7
+	fi
+	;;
+  restart)
+	$0 stop
+	$0 start
+	exit $?
+	;;
+  status)
+	status ${IRCD#\-}
+	exit $?
+	;;
+  *)
+	msg_usage "$0 {start|stop|restart|reload|force-reload|status}"
+	exit 3
+esac
+
+exit $RETVAL
