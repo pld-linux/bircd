@@ -6,21 +6,21 @@
 Summary:	Internet Relay Chat Server
 Summary(pl):	Serwer IRC (Internet Relay Chat)
 Name:		bircd
-Version:	2.0.3rc7
+Version:	2.0.3rc8
 Release:	1
 License:	GPL
 Group:		Daemons
-#Source0:	http://www.onthanet.nl/~borg/download/%{name}%{version}.tgz
-Source0:	http://ircd.limanowa.net/bircd/%{name}%{version}.tgz
-# Source0-md5:	d02de85d98073b547bd8eae61951dca3
+Source0:	ftp://ftp.benet.uu3.net/pub/ircd/%{name}%{version}.tgz
+# Source0-md5:	f19c80955b230a8a592b0ba4be25b269
 Source1:	%{name}.init
 Source2:	%{name}.sysconfig
 Source3:	%{name}.logrotate
+Source4:	%{name}.motd
 Patch0:		%{name}-makefile.patch
 Patch1:		%{name}-config.patch
 Patch2:		%{name}-smode.patch
 Patch3:		%{name}-crypt.patch
-URL:		http://www.onthanet.nl/~borg/
+URL:		http://www.benet.uu3.net/~borg/
 BuildRequires:	rpmbuild(macros) >= 1.159
 PreReq:		rc-scripts
 Requires(pre):	/usr/bin/getgid
@@ -75,16 +75,7 @@ install -d $RPM_BUILD_ROOT{%{_var}/log/{,archiv/}ircd,%{_sbindir}} \
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/ircd
 install %{SOURCE2} $RPM_BUILD_ROOT/etc/sysconfig/ircd
 install %{SOURCE3} $RPM_BUILD_ROOT/etc/logrotate.d/ircd
-
-cat << EOF > $RPM_BUILD_ROOT%{_sysconfdir}/ircd.motd
-
-Powered by PLD Linux Distribution IRC Server!
-
-WWW:	http://www.pld-linux.org/
-FTP:	ftp://ftp.pld-linux.org/
-e-mail:	feedback@pld-linux.org
-
-EOF
+install %{SOURCE4} $RPM_BUILD_ROOT%{_sysconfdir}/ircd.motd
 
 touch $RPM_BUILD_ROOT%{_localstatedir}/ircd.pid
 
@@ -147,7 +138,7 @@ fi
 %attr(640,ircd,ircd) %ghost %{_localstatedir}/ircd.pid
 %attr(750,root,ircd) %dir %{_sysconfdir}
 %attr(660,root,ircd) %config(noreplace) %{_sysconfdir}/ircd.conf
-%attr(664,root,ircd) %{_sysconfdir}/ircd.motd
+%attr(660,root,ircd) %config(noreplace) %{_sysconfdir}/ircd.motd
 %attr(754,root,root) /etc/rc.d/init.d/ircd
 %attr(640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/sysconfig/ircd
 %attr(640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/logrotate.d/ircd
