@@ -48,7 +48,8 @@ IPv6.
 
 %build
 ./Config
-%{__make}
+%{__make} \
+	LIBDIR=%{_libdir}
 
 %install
 rm -rf $RPM_BUILD_ROOT
