@@ -52,7 +52,7 @@ prosty w konfiguracji i u¿ytkowaniu. Posiada równie¿ wsparcie dla
 IPv6.
 
 %prep
-%setup -q -n bircd
+%setup -q -n %{name}
 %patch0 -p1
 %patch1 -p1
 %{?with_smode:%patch2 -p1}
