@@ -1,0 +1,25 @@
+diff -ur bircd.orig/src/ircd.c bircd/src/ircd.c
+--- bircd.orig/src/ircd.c	2004-01-07 20:15:56.000000000 +0100
++++ bircd/src/ircd.c	2004-08-02 19:23:00.389983904 +0200
+@@ -975,8 +975,8 @@
+                (void)fprintf(stderr,"WARNING: running ircd with uid = %d\n",SET_UID);
+                (void)fprintf(stderr,"         changing to gid %d.\n",SET_GID);
+                #endif
+-               (void)setuid(SET_UID);
+                (void)setgid(SET_GID);
++               (void)setuid(SET_UID);
+ #else
+                /* check for setuid root as usual */
+                (void)fprintf(stderr,"ERROR: do not run ircd setuid root. Make it setuid a normal user.\n");
+diff -ur bircd.orig/src/s_bsd.c bircd/src/s_bsd.c
+--- bircd.orig/src/s_bsd.c	2004-01-11 09:42:08.000000000 +0100
++++ bircd/src/s_bsd.c	2004-08-02 19:54:40.710091336 +0200
+@@ -643,7 +643,7 @@
+ if(((bootopt&BOOT_CONSOLE) || isatty(0)) && !(bootopt & (BOOT_INETD|BOOT_OPER)))
+   {
+   if(fork())
+-    exit(-1);
++    exit(0);
+   #ifdef TIOCNOTTY
+   if((fd=open("/dev/tty",O_RDWR))>=0)
+     {
