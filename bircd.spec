@@ -24,8 +24,10 @@ Requires(post,preun):	/sbin/chkconfig
 Requires(postun):	/usr/sbin/userdel
 Requires(postun):	/usr/sbin/groupdel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-Conflicts:	ircd
-Conflicts:	ircd-hybrid
+Obsoletes:	ircd
+Obsoletes:	ircd6
+Obsoletes:	ircd-hybrid
+Obsoletes:	ircd-ptlink
 
 %define		_sysconfdir	/etc/ircd
 %define		_localstatedir	/var/lib/ircd
