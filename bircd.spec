@@ -6,12 +6,12 @@
 Summary:	Internet Relay Chat Server
 Summary(pl):	Serwer IRC (Internet Relay Chat)
 Name:		bircd
-Version:	2.0.3rc10
+Version:	2.0.3rc11
 Release:	1
 License:	GPL
 Group:		Daemons
-Source0:	ftp://ftp.benet.uu3.net/pub/ircd/%{name}%{version}.tgz
-# Source0-md5:	dae79e6939428e3052ae2a053ebd191d
+Source0:	ftp://ftp.benet.uu3.net/pub/ircd/%{name}-%{version}.tgz
+# Source0-md5:	b6b28fecb070c2695797105abf9929f1
 Source1:	%{name}.init
 Source2:	%{name}.sysconfig
 Source3:	%{name}.logrotate
@@ -20,6 +20,7 @@ Patch0:		%{name}-makefile.patch
 Patch1:		%{name}-config.patch
 Patch2:		%{name}-smode.patch
 Patch3:		%{name}-crypt.patch
+Patch4:		%{name}-fix.patch
 URL:		http://www.benet.uu3.net/~borg/
 BuildRequires:	rpmbuild(macros) >= 1.159
 PreReq:		rc-scripts
@@ -57,6 +58,7 @@ IPv6.
 %patch1 -p1
 %{?with_smode:%patch2 -p1}
 %{?with_crypt:%patch3 -p1}
+%patch4 -p1
 
 %build
 ./Config
