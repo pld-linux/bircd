@@ -22,7 +22,7 @@ Patch2:		%{name}-smode.patch
 Patch3:		%{name}-crypt.patch
 Patch4:		%{name}-fix.patch
 URL:		http://www.benet.uu3.net/~borg/
-BuildRequires:	rpmbuild(macros) >= 1.159
+BuildRequires:	rpmbuild(macros) >= 1.202
 PreReq:		rc-scripts
 Requires(pre):	/usr/bin/getgid
 Requires(pre):	/bin/id
@@ -85,22 +85,8 @@ touch $RPM_BUILD_ROOT%{_localstatedir}/ircd.pid
 rm -rf $RPM_BUILD_ROOT
 
 %pre
-if [ -n "`getgid ircd`" ]; then
-	if [ "`getgid ircd`" != "75" ]; then
-		echo "Error: group ircd doesn't have gid=75. Correct this before installing ircd." 1>&2
-		exit 1
-	fi
-else
-	/usr/sbin/groupadd -f -g 75 ircd 2> /dev/null
-fi
-if [ -n "`id -u ircd 2>/dev/null`" ]; then
-	if [ "`id -u ircd`" != "75" ]; then
-		echo "Error: user ircd doesn't have uid=75. Correct this before installing ircd." 1>&2
-		exit 1
-	fi
-else
-	/usr/sbin/useradd -g ircd -d /etc/ircd -u 75 -s /bin/true -c "IRC Service account" ircd 2> /dev/null
-fi
+%groupadd -f -g 75 ircd
+%useradd -g ircd -d /etc/ircd -u 75 -s /bin/true -c "IRC Service account" ircd
 
 %post
 /sbin/chkconfig --add ircd
