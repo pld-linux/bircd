@@ -6,12 +6,12 @@
 Summary:	Internet Relay Chat Server
 Summary(pl):	Serwer IRC (Internet Relay Chat)
 Name:		bircd
-Version:	2.0.3rc12
+Version:	2.0.3rc13
 Release:	1
 License:	GPL
 Group:		Daemons
 Source0:	ftp://ftp.benet.uu3.net/pub/ircd/%{name}-%{version}.tgz
-# Source0-md5:	02d911afbe404d4b26adb73e8e0a3299
+# Source0-md5:	6fe21df719c2a81ff462b514ffa065bf
 Source1:	%{name}.init
 Source2:	%{name}.sysconfig
 Source3:	%{name}.logrotate
