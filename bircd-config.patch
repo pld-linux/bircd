@@ -1,7 +1,7 @@
 diff -ur bircd.orig/Config bircd/Config
---- bircd.orig/Config	2004-05-30 11:30:52.000000000 +0200
-+++ bircd/Config	2004-08-02 18:42:02.274674232 +0200
-@@ -46,19 +46,19 @@
+--- bircd.orig/Config	2005-06-12 10:15:30.000000000 +0200
++++ bircd/Config	2005-07-28 14:52:04.891190416 +0200
+@@ -46,12 +46,12 @@
  DEFLIBS="none"
  OSNAME="an unrecgonized operating system"
  #
@@ -17,9 +17,10 @@ diff -ur bircd.orig/Config bircd/Config
 +SET_UID=75
 +SET_GID=75
 +HUB="Yes"
- LISTEN_SIZE="5"
- MAXSENDQLENGTH="3000000"
- BUFFERPOOL="(10 * MAXSENDQLENGTH)"
+ CRYPT_OPER_PASS=""
+ CRYPT_SALT1="0xefcdab89"
+ CRYPT_SALT2="0x98badcfe"
+@@ -61,7 +61,7 @@
  NICKNAMEHISTORYLENGTH="2000"
  UNIXPORT=""
  USE_POLL=""
@@ -28,7 +29,7 @@ diff -ur bircd.orig/Config bircd/Config
  FD_SETSIZE=""
  
  #
-@@ -76,8 +76,6 @@
+@@ -79,8 +79,6 @@
    n='-n'
  fi
  
@@ -37,7 +38,7 @@ diff -ur bircd.orig/Config bircd/Config
  if [ "$1" = "-m" ]; then
    AUTO_CONFIG=""
  fi
-@@ -895,16 +893,18 @@
+@@ -898,16 +896,18 @@
  echo "#endif" >> $SETUP_H
  
  FOO=""
@@ -62,7 +63,7 @@ diff -ur bircd.orig/Config bircd/Config
      if [ -z "$cc" ] ; then
        cc=$FOO
      fi
-@@ -915,16 +915,18 @@
+@@ -918,16 +918,18 @@
  rm -f Makefile.tmp
  
  FOO=""
@@ -87,7 +88,7 @@ diff -ur bircd.orig/Config bircd/Config
      if [ -z "$cc" ] ; then
        cc=$FOO
      fi
-@@ -973,7 +975,12 @@
+@@ -976,7 +978,12 @@
      echo ""
      echo "Are you running as a HUB?"
      echo $n "[$FOO] -> $c"
@@ -101,7 +102,21 @@ diff -ur bircd.orig/Config bircd/Config
      if [ -z "$cc" ] ; then
        cc=$FOO
      fi
-@@ -1166,7 +1173,12 @@
+@@ -1007,7 +1014,12 @@
+     echo ""
+     echo "Encrypt O-Line password in ircd.conf?"
+     echo $n "[$FOO] -> $c"
+-    read cc
++    if [ -z "$AUTO_CONFIG" -o -n "$runonce" ] ; then
++      read cc
++    else
++      cc=""
++      runonce=Yes
++    fi
+     if [ -z "$cc" ] ; then
+       cc=$FOO
+     fi
+@@ -1199,7 +1211,12 @@
      echo "If you aren't sure, answer NO. select() will be used instead."
      echo "Use poll() for non-blocking I/O?"
      echo $n "[$FOO] -> $c"
@@ -114,7 +129,7 @@ diff -ur bircd.orig/Config bircd/Config
      if [ -z "$cc" ] ; then
        cc=$FOO
      fi
-@@ -1194,7 +1206,12 @@
+@@ -1227,7 +1244,12 @@
      echo "How many file descriptors (or sockets) can the irc server use?"
      echo "(This value should be the multiply of 64)"
      echo $n "[$FOO] -> $c"
@@ -128,7 +143,7 @@ diff -ur bircd.orig/Config bircd/Config
      if [ -z "$cc" ] ; then
        cc=$FOO
      fi
-@@ -1330,10 +1347,8 @@
+@@ -1363,10 +1385,8 @@
  #define NICKNAMEHISTORYLENGTH $NICKNAMEHISTORYLENGTH
  __EOF__
  
@@ -143,7 +158,7 @@ diff -ur bircd.orig/Config bircd/Config
    echo "#define USE_POLL" >> $OPTIONS_H
 diff -ur bircd.orig/doc/example.conf bircd/doc/example.conf
 --- bircd.orig/doc/example.conf	2004-02-21 17:45:02.000000000 +0100
-+++ bircd/doc/example.conf	2004-08-02 18:35:44.241144064 +0200
++++ bircd/doc/example.conf	2005-07-28 14:49:40.331166880 +0200
 @@ -13,13 +13,16 @@
  # I line says who is allowed to connect, this one allows everyone
  I:*::::10
@@ -166,8 +181,8 @@ diff -ur bircd.orig/doc/example.conf bircd/doc/example.conf
  # P lines are the port lines these say what ports can be used
  P:*:::6667
 diff -ur bircd.orig/include/config.h bircd/include/config.h
---- bircd.orig/include/config.h	2004-05-30 11:31:46.000000000 +0200
-+++ bircd/include/config.h	2004-08-02 18:58:33.666959696 +0200
+--- bircd.orig/include/config.h	2005-06-12 09:44:34.000000000 +0200
++++ bircd/include/config.h	2005-07-28 14:49:40.333166576 +0200
 @@ -37,7 +37,7 @@
  **
  ** Define this to enable IPv6 support.
