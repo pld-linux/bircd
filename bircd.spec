@@ -21,22 +21,22 @@ Patch1:		%{name}-config.patch
 Patch2:		%{name}-smode.patch
 Patch3:		%{name}-crypt.patch
 URL:		http://www.benet.uu3.net/~borg/
-BuildRequires:	rpmbuild(macros) >= 1.202
-PreReq:		rc-scripts
-Requires(pre):	/usr/bin/getgid
-Requires(pre):	/bin/id
-Requires(pre):	/usr/sbin/groupadd
-Requires(pre):	/usr/sbin/useradd
+BuildRequires:	rpmbuild(macros) >= 1.268
 Requires(post):	fileutils
 Requires(post,preun):	/sbin/chkconfig
 Requires(postun):	/usr/sbin/groupdel
 Requires(postun):	/usr/sbin/userdel
+Requires(pre):	/bin/id
+Requires(pre):	/usr/bin/getgid
+Requires(pre):	/usr/sbin/groupadd
+Requires(pre):	/usr/sbin/useradd
+Requires:	rc-scripts
 Provides:	group(ircd)
 Provides:	user(ircd)
 Obsoletes:	ircd
-Obsoletes:	ircd6
 Obsoletes:	ircd-hybrid
 Obsoletes:	ircd-ptlink
+Obsoletes:	ircd6
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_sysconfdir	/etc/ircd
@@ -88,21 +88,14 @@ rm -rf $RPM_BUILD_ROOT
 
 %post
 /sbin/chkconfig --add ircd
-if [ -f /var/lock/subsys/ircd ]; then
-	/etc/rc.d/init.d/ircd restart 1>&2
-else
-	echo "Run \"/etc/rc.d/init.d/ircd start\" to start IRC daemon."
-fi
+%service ircd restart "IRC daemon"
 touch /var/log/ircd/{opers.log,rejects.log,users.log}
 chmod 640 /var/log/ircd/*
 chown ircd:ircd /var/log/ircd/*
 
 %preun
-# If package is being erased for the last time.
 if [ "$1" = "0" ]; then
-	if [ -f /var/lock/subsys/ircd ]; then
-		/etc/rc.d/init.d/ircd stop 1>&2
-	fi
+	%service ircd stop
 	/sbin/chkconfig --del ircd
 fi
 
