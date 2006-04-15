@@ -7,7 +7,7 @@ Summary:	Internet Relay Chat Server
 Summary(pl):	Serwer IRC (Internet Relay Chat)
 Name:		bircd
 Version:	2.1.0rc1
-Release:	1
+Release:	2
 License:	GPL
 Group:		Daemons
 Source0:	ftp://ftp.benet.uu3.net/pub/irc/%{name}-%{version}.tgz
