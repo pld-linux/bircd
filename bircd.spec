@@ -6,8 +6,8 @@
 Summary:	Internet Relay Chat Server
 Summary(pl):	Serwer IRC (Internet Relay Chat)
 Name:		bircd
-%define         _rc     rc2
-%define         _rel    1
+%define		_rc	rc2
+%define		_rel	1
 Version:	2.1.0
 Release:	0.%{_rc}.%{_rel}
 Epoch:		1
