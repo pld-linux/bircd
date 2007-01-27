@@ -10,6 +10,7 @@ Name:		bircd
 %define         _rel    1
 Version:	2.1.0
 Release:	0.%{_rc}.%{_rel}
+Epoch:		1
 License:	GPL
 Group:		Daemons
 Source0:	ftp://ftp.benet.uu3.net/pub/irc/%{name}-%{version}%{_rc}.tgz
