@@ -4,7 +4,7 @@
 %bcond_with	crypt	# build with crypted passwords support
 #
 Summary:	Internet Relay Chat Server
-Summary(pl.UTF-8):   Serwer IRC (Internet Relay Chat)
+Summary(pl.UTF-8):	Serwer IRC (Internet Relay Chat)
 Name:		bircd
 %define		_rc	rc2
 %define		_rel	1
