@@ -4,7 +4,7 @@
 %bcond_with	crypt	# build with crypted passwords support
 #
 Summary:	Internet Relay Chat Server
-Summary(pl):	Serwer IRC (Internet Relay Chat)
+Summary(pl.UTF-8):   Serwer IRC (Internet Relay Chat)
 Name:		bircd
 %define		_rc	rc2
 %define		_rel	1
@@ -49,9 +49,9 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 bIRCd is a small, simple and very fast IRC server. It is easy to
 configure and use. It also has support for IPv6.
 
-%description -l pl
-bIRCd jest ma≥ym, prostym i bardzo szybkim serwerem IRC. Jest bardzo
-prosty w konfiguracji i uøytkowaniu. Posiada rÛwnieø wsparcie dla
+%description -l pl.UTF-8
+bIRCd jest ma≈Çym, prostym i bardzo szybkim serwerem IRC. Jest bardzo
+prosty w konfiguracji i u≈ºytkowaniu. Posiada r√≥wnie≈º wsparcie dla
 IPv6.
 
 %prep
