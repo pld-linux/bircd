@@ -115,7 +115,7 @@ fi
 %doc doc/{conf.doc,example.conf,tao.of.irc,whatsnew}
 %attr(755,root,root) %{_sbindir}/*
 %attr(770,root,ircd) %dir %{_var}/log/ircd
-%attr(770,root,ircd) %dir %{_var}/log/archiv/ircd
+%attr(770,root,ircd) %dir %{_var}/log/archive/ircd
 %attr(770,root,ircd) %dir %{_localstatedir}
 %attr(640,ircd,ircd) %ghost %{_localstatedir}/ircd.pid
 %attr(750,root,ircd) %dir %{_sysconfdir}
