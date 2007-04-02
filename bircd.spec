@@ -68,7 +68,7 @@ IPv6.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_var}/log/{,archiv/}ircd,%{_sbindir}} \
+install -d $RPM_BUILD_ROOT{%{_var}/log/{,archive/}ircd,%{_sbindir}} \
 	$RPM_BUILD_ROOT{%{_sysconfdir},/etc/{rc.d/init.d,sysconfig,logrotate.d}} \
 	$RPM_BUILD_ROOT%{_localstatedir}
 
