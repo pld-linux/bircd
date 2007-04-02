@@ -1,0 +1,57 @@
+diff -ur bircd.old/src/s_misc.c bircd/src/s_misc.c
+--- bircd.old/src/s_misc.c	Sun Feb 12 14:10:14 2006
++++ bircd/src/s_misc.c	Mon Mar  6 19:12:46 2006
+@@ -403,7 +403,7 @@
+ 
+     /* Clean up invitefield */
+     while((lp=sptr->user->invited))
+-      del_invite(sptr,lp->value.chptr);
++      del_invite(sptr,((struct SInvite *)(lp->value.vp))->chptr);
+     }
+   }
+ 
+diff -ur bircd.old/src/s_serv.c bircd/src/s_serv.c
+--- bircd.old/src/s_serv.c	Sun Feb 12 12:13:46 2006
++++ bircd/src/s_serv.c	Wed Feb 15 21:04:24 2006
+@@ -144,7 +144,7 @@
+ {
+ Reg1 aClient *acptr=0;
+ char *upsrv[2];
+-char srvs[2*HOSTLEN+2];
++char srvs[2*HOSTLEN+6];
+ char *server;
+ char *comment=(parc>2 && parv[parc-1]) ? parv[parc-1]:cptr->name;
+ int c;
+@@ -235,7 +235,7 @@
+   return 0;
+   }
+ 
+-if(IsServer(cptr) && parc>3)
++if(IsServer(cptr) && parc>3 && strlen(parv[2])<(2*HOSTLEN+2))
+   {
+   char *p;
+ 
+diff -ur bircd.old/src/send.c bircd/src/send.c
+--- bircd.old/src/send.c	Sun Feb 12 12:15:50 2006
++++ bircd/src/send.c	Wed Feb 15 21:04:28 2006
+@@ -459,7 +459,7 @@
+ */
+ void sendto_serv_butone3(aClient *one,char *pattern,char *p1,char *p2,char **p3,char *p4,char *p5,char *p6,char *p7,char *p8)
+ {
+-static char str[2*HOSTLEN+2];
++static char str[2*HOSTLEN+6];
+ Reg1 aClient *cptr;
+ Reg2 int i;
+ 
+diff -ur bircd.old/src/version.c bircd/src/version.c
+--- bircd.old/src/version.c	Sun Feb 12 11:08:04 2006
++++ bircd/src/version.c	Mon Mar  6 19:14:10 2006
+@@ -19,7 +19,7 @@
+ 
+ #include "struct.h"
+ 
+-#define VER "2.1.0rc1"
++#define VER "2.1.0rc1+p1"
+ 
+ char *creation = __DATE__ " " __TIME__;
+ char *version = "bIRCd" VER;
