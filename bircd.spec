@@ -7,7 +7,7 @@ Summary:	Internet Relay Chat Server
 Summary(pl.UTF-8):	Serwer IRC (Internet Relay Chat)
 Name:		bircd
 %define		_rc	rc2
-%define		_rel	1
+%define		_rel	2
 Version:	2.1.0
 Release:	0.%{_rc}.%{_rel}
 Epoch:		1
@@ -40,7 +40,7 @@ Obsoletes:	ircd
 Obsoletes:	ircd-hybrid
 Obsoletes:	ircd-ptlink
 Obsoletes:	ircd6
-Conflicts:	logrotate < 3.7-4
+Conflicts:	logrotate < 3.8.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_sysconfdir	/etc/ircd
